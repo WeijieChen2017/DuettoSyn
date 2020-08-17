@@ -47,6 +47,8 @@ tic
 sino = ptbForwardProject(imageFrame, subsetSino, scanner, reconParams.fwdProjFunc);
 toc
 
+save('sino.mat', 'sino.mat')
+
 % If you add the following to your Matlab path 
 %   /data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/lmDuetto_v02.06.beta_Jul2020
 %   then you can view the sinogram like this:
