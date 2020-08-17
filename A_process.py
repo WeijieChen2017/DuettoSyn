@@ -9,7 +9,7 @@ file_list.sort()
 for file_name in file_list:
     print(file_name)
 
-    file_nii = nib.load(file_list[1])
+    file_nii = nib.load(file_name)
     file_data = file_nii.get_fdata()
     file_header = file_nii.header
     file_affine = file_nii.affine
