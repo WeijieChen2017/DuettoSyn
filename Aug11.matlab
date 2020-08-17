@@ -3,7 +3,7 @@
 %   /data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020
 
 % Load an image
-img = ptbReadSaveFile('/path/to/image.sav');
+img = ptbReadSaveFile('subj01_pet.mat');
 
 %% Set up a basic recon 
 % Set the radial FOV to match your image.
@@ -14,7 +14,7 @@ img = ptbReadSaveFile('/path/to/image.sav');
 reconAlgorithm = 'OSEM-PSF';
 userConfig = ptbUserConfig(reconAlgorithm);
 userConfig.nX = size(img,1);
-userConfig.radialFov = 300; % radial FOV in mm for image
+userConfig.radialFov = 240; % radial FOV in mm for image
 
 %% Perform forward projection
 % This should just run as is, you shouldn't need to change anything
