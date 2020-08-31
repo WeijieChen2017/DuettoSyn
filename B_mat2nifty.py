@@ -28,5 +28,5 @@ zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 print("Old dim:", data.shape)
 print("New dim:", zoom_data.shape)
 
-sino_file = nib.Nifti1Image(data, affine=file_affine, header=file_header)
+sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
 nib.save(sino_file, "./"+name+".nii")
