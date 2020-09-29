@@ -6,7 +6,7 @@ import glob
 
 name = "mri89FOV240_recon_OSEM"
 mdict = loadmat(name+".mat")
-data = mdict["recon_OP"]
+data = mdict["reconImg"]
 
 file_list = glob.glob("./data/*.nii")
 file_list.sort()
