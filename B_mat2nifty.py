@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 import glob
 
-name = "mri89FOV240_recon_OSEM"
+name = "mri89FOV240_recon_OSEM4"
 mdict = loadmat(name+".mat")
 data = mdict["reconImg"]
 
