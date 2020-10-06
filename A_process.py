@@ -16,7 +16,7 @@ for file_name in file_list:
     file_affine = file_nii.affine
 
     px, py, pz = file_data.shape
-    qx, qy, qz = (256, 256, 89)
+    qx, qy, qz = (512, 512, 89)
     zoom_data = zoom(file_data, (qx/px, qy/py, qz/pz))
 
     print("Old dim:", file_data.shape)
