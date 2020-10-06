@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 import glob
 
-name = "s1_bravo_recon_OSEM"
+name = "s1_bravo_recon"
 mdict = loadmat(name+".mat")
 data = mdict["reconImg"]
 
@@ -18,8 +18,8 @@ file_data = file_nii.get_fdata()
 file_header = file_nii.header
 file_affine = file_nii.affine
 
-data[data<0] = 0
-data[data>1] = 1
+# data[data<0] = 0
+# data[data>1] = 1
 
 px, py, pz = data.shape
 qx, qy, qz = (512, 512, 284)
