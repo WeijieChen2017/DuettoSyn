@@ -15,16 +15,16 @@ for file_name in file_list:
     file_affine = file_nii.affine
 
     px, py, pz = file_data.shape
-	qx, qy, qz = (256, 256, 89)
-	zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    qx, qy, qz = (256, 256, 89)
+    zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 
-	print("Old dim:", data.shape)
-	print("New dim:", zoom_data.shape)
+    print("Old dim:", data.shape)
+    print("New dim:", zoom_data.shape)
 
     mdic = {"data": file_data}
     savemat("./leah/"+os.path.basename(file_name)[:-4]+".mat", mdic)
 
     pure_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
-	nib.save(pure_file, "./leah/"+name+".nii")
+    nib.save(pure_file, "./leah/"+name+".nii")
 
 print("---Finished---")
