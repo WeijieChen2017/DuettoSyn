@@ -38,7 +38,7 @@ imageFrame.data = img;
 
 fprintf('Forward projecting\n');
 sino = ptbForwardProject(imageFrame, subsetSino, scanner, reconParams.fwdProjFunc);
-save(strcat(name+'_sino_bravo.mat', 'sino'))
+% save(strcat(name+'_sino_bravo.mat', 'sino'))
 
 fprintf('Applying PSF to sinogram\n');
 psfMatrix = ptbReadFile(reconParams.corrOptions.psfOptions.sinoRadialFilename);

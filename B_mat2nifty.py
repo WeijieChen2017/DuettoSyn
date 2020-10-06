@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 import glob
 
-name = "s1_bravo_recon_OSEM"
+name = "s1_bravo_recon_bravo"
 mdict = loadmat(name+".mat")
 data = mdict["reconImg"]
 
