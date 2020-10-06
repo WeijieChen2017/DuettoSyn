@@ -17,9 +17,9 @@ for file_name in file_list:
 
     px, py, pz = file_data.shape
     qx, qy, qz = (256, 256, 89)
-    zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    zoom_data = zoom(file_data, (qx/px, qy/py, qz/pz))
 
-    print("Old dim:", data.shape)
+    print("Old dim:", file_data.shape)
     print("New dim:", zoom_data.shape)
 
     mdic = {"data": file_data}
