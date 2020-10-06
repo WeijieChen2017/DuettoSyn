@@ -1,6 +1,7 @@
 import numpy as np
 import nibabel as nib
 from scipy.io import savemat
+from scipy.ndimage import zoom
 import glob
 import os
 
