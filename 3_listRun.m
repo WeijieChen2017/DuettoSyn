@@ -4,8 +4,8 @@ addpath(genpath(duettoPath));
 
 files = dir(fullfile("./", '*.mat'));
 for k=1:22
-name = files(k).name(1:7);
-img = load(strcat(name,'.mat'))
+name = files(k).name(1:7)
+img = load(strcat(name,'.mat'));
 img = img.data;
 
 reconAlgorithm = 'OSEM-PSF';
