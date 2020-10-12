@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 import glob
 
-leah_list = glob.glob("./data/pet/*.ni")
+leah_list = glob.glob("./data/pet/*.nii")
 for leah_name in leah_list:
     name = leah_name
     data = nib.load(leah_name).get_fdata()
