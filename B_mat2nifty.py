@@ -8,7 +8,7 @@ leah_list = glob.glob("./leah/recon/*.mat")
 for leah_name in leah_list:
     name = leah_name
     mdict = loadmat(name)
-    data = mdict["reconImg"]
+    data = mdict["data"]
 
     tmpl_name = "./data/mri_89.nii"
     file_nii = nib.load(tmpl_name)
@@ -20,7 +20,7 @@ for leah_name in leah_list:
     # data[data>1] = 1
 
     px, py, pz = data.shape
-    qx, qy, qz = (512, 512, 284)
+    qx, qy, qz = (512, 512, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 
     print("Old dim:", data.shape)
