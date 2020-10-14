@@ -8,7 +8,7 @@ leah_list = glob.glob("./leah/recon/*.mat")
 for leah_name in leah_list:
     name = leah_name
     mdict = loadmat(name)
-    data = mdict["data"]
+    data = mdict["reconImg"]
 
     tmpl_name = "./data/mri_89.nii"
     file_nii = nib.load(tmpl_name)
