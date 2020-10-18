@@ -4,7 +4,7 @@ import numpy as np
 import nibabel as nib
 import glob
 
-leah_list = glob.glob("./leah/recon/*.mat")
+leah_list = glob.glob("./recon/*.mat")
 for leah_name in leah_list:
     name = leah_name
     mdict = loadmat(name)
