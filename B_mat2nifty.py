@@ -10,7 +10,7 @@ for leah_name in leah_list:
     mdict = loadmat(name)
     data = mdict["reconImg"]
 
-    tmpl_name = "./data/mri_89.nii"
+    tmpl_name = "./recon/example.nii"
     file_nii = nib.load(tmpl_name)
     file_data = file_nii.get_fdata()
     file_header = file_nii.header
