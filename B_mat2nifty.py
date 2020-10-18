@@ -8,7 +8,16 @@ leah_list = glob.glob("./recon/*.mat")
 for leah_name in leah_list:
     name = leah_name
     mdict = loadmat(name)
-    data = mdict["reconImg"]
+
+    try:
+        data = mdict["reconImg"]
+    except Exception:
+        pass  # or you could use 'continue'
+
+    try:
+        data = mdict["data"]
+    except Exception:
+        pass  # or you could use 'continue'
 
     tmpl_name = "./recon/example.nii"
     file_nii = nib.load(tmpl_name)
