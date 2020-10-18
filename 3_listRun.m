@@ -2,9 +2,9 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-files = dir(fullfile("./", '*.mat'));
-for k=1:22
-name = files(k).name(1:7)
+files = dir(fullfile("./data/", '*.mat'));
+for k=1:1
+name = files(k).name(1:5)
 img = load(strcat(name,'.mat'));
 img = img.data;
 
