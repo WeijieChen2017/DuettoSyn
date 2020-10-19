@@ -23,7 +23,7 @@ for file_name in file_list:
     print("New dim:", zoom_data.shape)
 
     mdic = {"data": zoom_data}
-    savemat("./leah/"+os.path.basename(file_name)[:-4]+".mat", mdic)
+    savemat("./data/"+os.path.basename(file_name)[:-4]+".mat", mdic)
 
     pure_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
     nib.save(pure_file, "./leah/"+os.path.basename(file_name)[:-4]+".nii")
