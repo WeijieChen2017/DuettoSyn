@@ -3,6 +3,10 @@ from scipy.io import loadmat
 import numpy as np
 import nibabel as nib
 import glob
+import os
+
+Prefix = "oct19"
+exper_count = 1
 
 leah_list = glob.glob("./recon/*.mat")
 for leah_name in leah_list:
@@ -36,4 +40,17 @@ for leah_name in leah_list:
     print("New dim:", zoom_data.shape)
 
     sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
-    nib.save(sino_file, name[:-4]+".nii")
+
+    os.system("mkdir ./recon/"+Prefix+"_"+str(exper_count))
+
+    pure_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./pure/"
+    blur_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./blur/"
+    test_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./test/"    
+
+    os.system("mkdir "+pure_dir)
+    os.system("mkdir "+blur_dir)
+    os.system("mkdir "+test_dir)
+
+    nib.save(sino_file, blur_dir+name[:-4]+".nii")
+    nib.save(sino_file, test_dir+name[:-4]+".nii")
+    os.system("mv ./data/"+name[:-4]+".nii "+pure_dir)
