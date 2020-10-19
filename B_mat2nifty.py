@@ -6,10 +6,11 @@ import glob
 import os
 
 Prefix = "oct19"
-exper_count = 1
+exper_count = 0
 
 leah_list = glob.glob("./recon/*.mat")
 for leah_name in leah_list:
+    exper_count += 1
     name = leah_name
     mdict = loadmat(name)
 
@@ -43,14 +44,16 @@ for leah_name in leah_list:
 
     os.system("mkdir ./recon/"+Prefix+"_"+str(exper_count))
 
-    pure_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./pure/"
-    blur_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./blur/"
-    test_dir = "./recon/"+Prefix+"_"+str(exper_count)+"./test/"    
+    pure_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/pure/"
+    blur_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/blur/"
+    test_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/test/"    
 
     os.system("mkdir "+pure_dir)
     os.system("mkdir "+blur_dir)
     os.system("mkdir "+test_dir)
 
-    nib.save(sino_file, blur_dir+name[:-4]+".nii")
-    nib.save(sino_file, test_dir+name[:-4]+".nii")
-    os.system("mv ./data/"+name[:-4]+".nii "+pure_dir)
+    filename = os.path.basename(name)[:-17]
+    new_dataname = filename+"_op_z89_xy512_f4.nii"
+    nib.save(sino_file, blur_dir+new_dataname)
+    nib.save(sino_file, test_dir+new_dataname)
+    os.system("mv ./data/"+filename+".nii "+pure_dir+new_dataname)
