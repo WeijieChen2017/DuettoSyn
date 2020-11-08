@@ -3,8 +3,8 @@ duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_M
 addpath(genpath(duettoPath));
 
 files = dir(fullfile("./data/", '*.mat'));
-for k=1:8
-name = files(k)
+
+name = files(1)
 img = load(strcat('./data/', name.name));
 img = img.data;
 
@@ -49,7 +49,9 @@ sinoFile = strcat(name.name, '_emission_bravo.sav');
 fprintf('Writing sinogram to %s\n', sinoFile);
 ptbWriteSaveFile(sino, sinoFile);
 
-reconAlgorithm = 'OSEM';
+for k=1:3
+
+reconAlgorithm = 'OSEM-PSF';
 userConfig = ptbUserConfig(reconAlgorithm);
 
 userConfig.nX = 256;        % number of image columns
@@ -63,7 +65,7 @@ userConfig.randomsCorrFlag = 0;
 userConfig.scatterCorrFlag = 0;
 userConfig.attenCorrFlag = 0;
 userConfig.normDtPucCorrFlag = 0;
-userConfig.postFilterFwhm = 4;
+userConfig.postFilterFwhm = k*4;
 userConfig.verbosity = PtbVerboseEnum.VERBOSE;
 sinoFile = strcat(name.name, '_emission_bravo.sav');
 
@@ -91,8 +93,8 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
     reconParams, sinoParams, ftrParams, ftrMask, scanner);
 
 %%
-reconFile = strcat(name.name, '_recon_OS_F4.sav');
-reconMat = strcat(name.name, '_recon_OS_F4.mat');
+reconFile = strcat(name.name, '_recon_OS_F', k, '.sav');
+reconMat = strcat(name.name, '_recon_OS_F', k, '.sav');
 fprintf('Writing recon to %s\n', reconFile);
 ptbWriteSaveFile(reconImg, reconFile);
 save(strcat(name.name, '_reconParams.par'), 'generalParams', 'reconParams')

@@ -42,11 +42,12 @@ for leah_name in leah_list:
 
     sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
 
-    os.system("mkdir ./recon/"+Prefix+"_"+str(exper_count))
+    expername = Prefix+"_"+str(exper_count)
+    os.system("mkdir ./recon/"+expername)
 
-    pure_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/pure/"
-    blur_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/blur/"
-    test_dir = "./recon/"+Prefix+"_"+str(exper_count)+"/test/"    
+    pure_dir = "./recon/"+expername+"/pure/"
+    blur_dir = "./recon/"+expername+"/blur/"
+    test_dir = "./recon/"+expername+"/test/"    
 
     os.system("mkdir "+pure_dir)
     os.system("mkdir "+blur_dir)
@@ -57,3 +58,4 @@ for leah_name in leah_list:
     nib.save(sino_file, blur_dir+new_dataname)
     nib.save(sino_file, test_dir+new_dataname)
     os.system("mv ./data/"+filename+".nii "+pure_dir+new_dataname)
+    os.system("zip -r "+expername+"zip "+expername)
