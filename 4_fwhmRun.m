@@ -67,7 +67,7 @@ userConfig.attenCorrFlag = 0;
 userConfig.normDtPucCorrFlag = 0;
 userConfig.postFilterFwhm = k*4;
 userConfig.verbosity = PtbVerboseEnum.VERBOSE;
-sinoFile = strcat(name.name, '_emission_bravo.sav');
+po = strcat(name.name, '_emission_bravo.sav');
 
 %% Create necessary parameter structures
 % Create bare RDF structure
@@ -94,7 +94,7 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
 
 %%
 reconFile = strcat(name.name, '_recon_OS_F', k, '.sav');
-reconMat = strcat(name.name, '_recon_OS_F', k, '.sav');
+reconMat = strcat(name.name, '_recon_OS_F', k, '.mat');
 fprintf('Writing recon to %s\n', reconFile);
 ptbWriteSaveFile(reconImg, reconFile);
 save(strcat(name.name, '_reconParams.par'), 'generalParams', 'reconParams')
