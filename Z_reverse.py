@@ -77,7 +77,7 @@ def reverse_dataset(name_dataset, mri_folder, powerFactor):
         
         # reverse
         norm_mri = maxmin_norm(data_mri)
-        mask_mri = [data_mri == 0]
+        mask_mri = [norm_mri == 0]
 
         norm_mri = 1-norm_mri
         norm_mri[mask_mri] = 0
@@ -89,7 +89,7 @@ def reverse_dataset(name_dataset, mri_folder, powerFactor):
         # for power in power_hub:
         # norm_mri_p = norm_mri ** powerFactor
         file_inv = nib.Nifti1Image(norm_mri, nii_file.affine, nii_file.header)
-        save_name = pure_path+"/"+nii_name+"_inv"+str(powerFactor)+".nii.gz"
+        save_name = "./"+nii_name+"_inv"+str(powerFactor)+".nii.gz"
         nib.save(file_inv, save_name)
             
         print(save_name)
