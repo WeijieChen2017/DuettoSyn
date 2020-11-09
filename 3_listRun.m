@@ -2,10 +2,10 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-folderName = "./BraTS20T_001_039/"
+folderName = "./BraTS20T_001_039/";
 files = dir(fullfile(folderName, '*.mat'));
 for k=1:39
-name = files(1)
+name = files(k)
 img = load(strcat(folderName, name.name));
 img = img.data;
 
@@ -95,8 +95,6 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
 reconFile = strcat(folderName, name.name, '_recon_OSP_F4.sav');
 reconMat = strcat(folderName, name.name, '_recon_OSP_F4.mat');
 fprintf('Writing recon to %s\n', reconFile);
-// ptbWriteSaveFile(reconImg, reconFile);
-// save(strcat(name.name, '_reconParams.par'), 'generalParams', 'reconParams')
 save(reconMat, 'reconImg')
 
 end
