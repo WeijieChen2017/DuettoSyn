@@ -2,10 +2,11 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-files = dir(fullfile("./data/", '*.mat'));
-for k=1:8
-name = files(k)
-img = load(strcat('./data/', name.name));
+folderName = "./BraTS20T_001_039/"
+files = dir(fullfile(folderName, '*.mat'));
+for k=1:39
+name = files(1)
+img = load(strcat(folderName, name.name));
 img = img.data;
 
 reconAlgorithm = 'OSEM-PSF';
@@ -38,18 +39,18 @@ imageFrame.data = img;
 
 fprintf('Forward projecting\n');
 sino = ptbForwardProject(imageFrame, subsetSino, scanner, reconParams.fwdProjFunc);
-% save(strcat(name.name+'_sino_bravo.mat', 'sino'))
+% save(strcat(folderName, name.name+'_sino_bravo.mat', 'sino'))
 
 fprintf('Applying PSF to sinogram\n');
 psfMatrix = ptbReadFile(reconParams.corrOptions.psfOptions.sinoRadialFilename);
 sino = ptbApplySinoSpacePsf(sino, subsetSino, psfMatrix, ...
     reconParams.corrOptions.psfOptions, reconParams.fwdProjFunc);
 
-sinoFile = strcat(name.name, '_emission_bravo.sav');
+sinoFile = strcat(folderName, name.name, '_emission_bravo.sav');
 fprintf('Writing sinogram to %s\n', sinoFile);
 ptbWriteSaveFile(sino, sinoFile);
 
-reconAlgorithm = 'OSEM';
+reconAlgorithm = 'OSEM-PSF';
 userConfig = ptbUserConfig(reconAlgorithm);
 
 userConfig.nX = 256;        % number of image columns
@@ -65,7 +66,7 @@ userConfig.attenCorrFlag = 0;
 userConfig.normDtPucCorrFlag = 0;
 userConfig.postFilterFwhm = 4;
 userConfig.verbosity = PtbVerboseEnum.VERBOSE;
-sinoFile = strcat(name.name, '_emission_bravo.sav');
+sinoFile = strcat(folderName, name.name, '_emission_bravo.sav');
 
 %% Create necessary parameter structures
 % Create bare RDF structure
@@ -91,11 +92,11 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
     reconParams, sinoParams, ftrParams, ftrMask, scanner);
 
 %%
-reconFile = strcat(name.name, '_recon_OS_F4.sav');
-reconMat = strcat(name.name, '_recon_OS_F4.mat');
+reconFile = strcat(folderName, name.name, '_recon_OSP_F4.sav');
+reconMat = strcat(folderName, name.name, '_recon_OSP_F4.mat');
 fprintf('Writing recon to %s\n', reconFile);
-ptbWriteSaveFile(reconImg, reconFile);
-save(strcat(name.name, '_reconParams.par'), 'generalParams', 'reconParams')
+// ptbWriteSaveFile(reconImg, reconFile);
+// save(strcat(name.name, '_reconParams.par'), 'generalParams', 'reconParams')
 save(reconMat, 'reconImg')
 
 end

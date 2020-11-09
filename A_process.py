@@ -5,7 +5,7 @@ from scipy.ndimage import zoom
 import glob
 import os
 
-file_list = glob.glob("./data/*.nii")
+file_list = glob.glob("./BraTS20T_001_039/*.nii.gz")
 file_list.sort()
 for file_name in file_list:
     print(file_name)
@@ -23,9 +23,9 @@ for file_name in file_list:
     print("New dim:", zoom_data.shape)
 
     mdic = {"data": zoom_data}
-    savemat("./data/"+os.path.basename(file_name)[:-4]+".mat", mdic)
+    savemat("./BraTS20T_001_039/"+os.path.basename(file_name)[:-4]+".mat", mdic)
 
-    pure_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
-    nib.save(pure_file, "./data/"+os.path.basename(file_name)[:-4]+".nii")
+    # pure_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
+    # nib.save(pure_file, "./BraTS20T_001_039/"+os.path.basename(file_name)[:-4]+".nii")
 
 print("---Finished---")
