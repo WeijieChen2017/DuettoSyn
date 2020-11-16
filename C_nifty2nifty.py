@@ -30,18 +30,16 @@ for leah_name in leah_list:
     print("Original sum:", np.sum(data))
     print("2x sum:", np.sum(zoom_data))
 
-    recon_data = np.zeros((256, 256, 89))
+    PVE_data = np.zeros((256, 256, 89))
     for idx in range(256):
         for idy in range(256):
             for idz in range(89):
-                recon_data[idx, idy, idz] = np.sum(zoom_data[
-                                                    idx*2:idx*2+1,
-                                                    idy*2:idy*2+1,
-                                                    idz*2:idz*2+1])
+                PVE_data[idx, idy, idz] = np.sum(zoom_data[
+                                                idx*2:idx*2+1,
+                                                idy*2:idy*2+1,
+                                                idz*2:idz*2+1])
 
     print("PVE sum:", np.sum(recon_data))
 
-
-
-    sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
-    nib.save(sino_file, name[:-4] +"_xy512z178.nii")
+    sino_file = nib.Nifti1Image(recon_data, affine=file_affine, header=file_header)
+    nib.save(sino_file, name[:-4] +"_xy256z89_PVE.nii")
