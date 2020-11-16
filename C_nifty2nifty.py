@@ -5,6 +5,7 @@ import nibabel as nib
 import glob
 
 leah_list = glob.glob("../../BraTS20T_001_039/*.nii.gz")
+leah_list.sort()
 for leah_name in leah_list:
     print(leah_name)
     name = leah_name
@@ -22,11 +23,10 @@ for leah_name in leah_list:
     px, py, pz = data.shape
     qx, qy, qz = (512, 512, 178)
 
-    print("Old dim:", data.shape)
-    print("New dim:", zoom_data.shape)
-
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
     zoom_data = zoom_data / np.sum(zoom_data) * np.sum(data)
+    print("Old dim:", data.shape)
+    print("New dim:", zoom_data.shape)
     print("Original sum:", np.sum(data))
     print("2x sum:", np.sum(zoom_data))
 
