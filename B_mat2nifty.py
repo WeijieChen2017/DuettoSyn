@@ -42,12 +42,12 @@ for leah_name in leah_list:
 
     sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
 
-    expername = Prefix+"_"+str(exper_count)
-    os.system("mkdir ./recon/"+expername+"/")
+    # expername = Prefix+"_"+str(exper_count)
+    # os.system("mkdir ./recon/"+expername+"/")
 
     filename = os.path.basename(name)[:-17]
     new_dataname = filename+"_xy256z89.nii"
-    nib.save(sino_file, "./recon/"+expername+new_dataname)
+    nib.save(sino_file, "./recon/PVC2x_"+new_dataname)
 
     # # pure_dir = "./recon/"+expername+"/pure/"
     # # blur_dir = "./recon/"+expername+"/blur/"
