@@ -5,10 +5,10 @@ import nibabel as nib
 import glob
 import os
 
-Prefix = "oct19"
+Prefix = "PVC2x"
 exper_count = 0
 
-leah_list = glob.glob("./recon/*.mat")
+leah_list = glob.glob("./pet/*.mat")
 for leah_name in leah_list:
     exper_count += 1
     name = leah_name
@@ -34,7 +34,7 @@ for leah_name in leah_list:
     # data[data>1] = 1
 
     px, py, pz = data.shape
-    qx, qy, qz = (512, 512, 89)
+    qx, qy, qz = (512, 512, 178)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 
     print("Old dim:", data.shape)
@@ -43,19 +43,23 @@ for leah_name in leah_list:
     sino_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
 
     expername = Prefix+"_"+str(exper_count)
-    os.system("mkdir ./recon/"+expername)
-
-    pure_dir = "./recon/"+expername+"/pure/"
-    blur_dir = "./recon/"+expername+"/blur/"
-    test_dir = "./recon/"+expername+"/test/"    
-
-    os.system("mkdir "+pure_dir)
-    os.system("mkdir "+blur_dir)
-    os.system("mkdir "+test_dir)
+    os.system("mkdir ./recon/"+expername+"/")
 
     filename = os.path.basename(name)[:-17]
-    new_dataname = filename+"_op_z89_xy512_f4.nii"
-    nib.save(sino_file, blur_dir+new_dataname)
-    nib.save(sino_file, test_dir+new_dataname)
-    os.system("mv ./data/"+filename+".nii "+pure_dir+new_dataname)
-    os.system("zip -r "+expername+"zip "+expername)
+    new_dataname = filename+"_xy512z178.nii"
+    nib.save(sino_file, "./recon/"+expername+new_dataname)
+
+    # # pure_dir = "./recon/"+expername+"/pure/"
+    # # blur_dir = "./recon/"+expername+"/blur/"
+    # # test_dir = "./recon/"+expername+"/test/"    
+
+    # # os.system("mkdir "+pure_dir)
+    # # os.system("mkdir "+blur_dir)
+    # # os.system("mkdir "+test_dir)
+
+    # filename = os.path.basename(name)[:-17]
+    # new_dataname = filename+"_op_z89_xy512_f4.nii"
+    # nib.save(sino_file, blur_dir+new_dataname)
+    # nib.save(sino_file, test_dir+new_dataname)
+    # os.system("mv ./data/"+filename+".nii "+pure_dir+new_dataname)
+    # os.system("zip -r "+expername+"zip "+expername)

@@ -4,8 +4,9 @@ addpath(genpath(duettoPath));
 
 folderName = "./BraTS20T_001_039/";
 files = dir(fullfile(folderName, '*.mat'));
-for k=1:39
+for k=1:12
 name = files(k)
+[pathstr_temp,basename,exttemp] = fileparts(name.name);
 img = load(strcat(folderName, name.name));
 img = img.data;
 
@@ -39,14 +40,14 @@ imageFrame.data = img;
 
 fprintf('Forward projecting\n');
 sino = ptbForwardProject(imageFrame, subsetSino, scanner, reconParams.fwdProjFunc);
-% save(strcat(folderName, name.name+'_sino_bravo.mat', 'sino'))
+save(strcat(folderName, basename, '_sino_bravo.mat'), 'sino');
 
 fprintf('Applying PSF to sinogram\n');
 psfMatrix = ptbReadFile(reconParams.corrOptions.psfOptions.sinoRadialFilename);
 sino = ptbApplySinoSpacePsf(sino, subsetSino, psfMatrix, ...
     reconParams.corrOptions.psfOptions, reconParams.fwdProjFunc);
 
-sinoFile = strcat(folderName, name.name, '_emission_bravo.sav');
+sinoFile = strcat(basename, '_emission_bravo.sav');
 fprintf('Writing sinogram to %s\n', sinoFile);
 ptbWriteSaveFile(sino, sinoFile);
 
@@ -66,7 +67,7 @@ userConfig.attenCorrFlag = 0;
 userConfig.normDtPucCorrFlag = 0;
 userConfig.postFilterFwhm = 4;
 userConfig.verbosity = PtbVerboseEnum.VERBOSE;
-sinoFile = strcat(folderName, name.name, '_emission_bravo.sav');
+sinoFile = strcat(basename, '_emission_bravo.sav');
 
 %% Create necessary parameter structures
 % Create bare RDF structure
@@ -92,9 +93,8 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
     reconParams, sinoParams, ftrParams, ftrMask, scanner);
 
 %%
-reconFile = strcat(folderName, name.name, '_recon_OSP_F4.sav');
-reconMat = strcat(folderName, name.name, '_recon_OSP_F4.mat');
-fprintf('Writing recon to %s\n', reconFile);
+reconMat = strcat(folderName, basename, '_recon_OSP_F4.mat')
+fprintf('Writing recon to %s\n', reconMat);
 save(reconMat, 'reconImg')
 
 end
