@@ -39,7 +39,7 @@ for leah_name in leah_list:
                                                 idy*2:idy*2+1,
                                                 idz*2:idz*2+1])
 
-    print("PVE sum:", np.sum(recon_data))
+    print("PVE sum:", np.sum(PVE_data))
 
-    sino_file = nib.Nifti1Image(recon_data, affine=file_affine, header=file_header)
+    sino_file = nib.Nifti1Image(PVE_data, affine=file_affine, header=file_header)
     nib.save(sino_file, name[:-4] +"_xy256z89_PVE.nii")
