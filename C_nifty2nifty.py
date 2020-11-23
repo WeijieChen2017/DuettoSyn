@@ -35,7 +35,7 @@ for leah_name in leah_list:
         for idy in range(py):
             for idz in range(pz):
                 # print("Old sum:", data[idx, idy, idz])
-                new_sum = np.sum(zoom_data[idx*2:idx*2+1, idy*2:idy*2+1, idz*2:idz*2+1])
+                new_sum = np.sum(zoom_data[idx*2:idx*2+2, idy*2:idy*2+2, idz*2:idz*2+2])
                 # print("New sum:", new_sum)
                 PVE_data[idx, idy, idz] = new_sum
 
