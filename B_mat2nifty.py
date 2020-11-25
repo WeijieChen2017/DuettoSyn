@@ -8,7 +8,7 @@ import os
 Prefix = "PVC2x"
 exper_count = 0
 
-def maxmin_norm(data, pMax=99.9, pMin=0.01):
+def maxmin_norm(data, pMax=99.9, pMin=0.00):
     # MAX = np.amax(data)
     # MIN = np.amin(data)
     MAX = np.percentile(data, q=pMax)
