@@ -41,7 +41,8 @@ for leah_name in leah_list:
     # data[data<0] = 0
     # data[data>1] = 1
     (values,counts) = np.unique(data,return_counts=True)
-    th = np.argmax(counts)
+    ind = np.argmax(counts)
+    th = values[ind]
     print("background: ", th)
     data[data<th] = 0
 
