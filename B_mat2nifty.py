@@ -8,6 +8,14 @@ import os
 Prefix = "PVC2x"
 exper_count = 0
 
+def maxmin_norm(data, pMax=99.9, pMin=0.01):
+    # MAX = np.amax(data)
+    # MIN = np.amin(data)
+    MAX = np.percentile(data, q=pMax)
+    MIN = np.percentile(data, q=pMin)
+    data = (data - MIN)/(MAX-MIN)
+    return data
+
 leah_list = glob.glob("./pet/*.mat")
 for leah_name in leah_list:
     exper_count += 1
@@ -37,6 +45,7 @@ for leah_name in leah_list:
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    zoom_data = maxmin_norm(zoom_data)
 
     print("Old dim:", data.shape)
     print("New dim:", zoom_data.shape)
