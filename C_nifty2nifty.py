@@ -26,7 +26,8 @@ for nii_name in nii_list:
     file_header = file_nii.header
     file_affine = file_nii.affine
 
-    th = np.bincount(data).argmax()
+    (values,counts) = np.unique(data,return_counts=True)
+    th = np.argmax(counts)
     print("background: ", th)
     data[data<th] = 0
     # data[data>1] = 1
