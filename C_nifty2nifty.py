@@ -16,7 +16,7 @@ def maxmin_norm(data, pMax=99.9, pMin=0.00):
 nii_list = glob.glob("./BraTS20T_001_039/finish/*.nii.gz")
 nii_list.sort()
 for nii_name in nii_list:
-    print(nii_name)
+    # print(nii_name)
     name = nii_name
     data = nib.load(nii_name).get_fdata()
 
@@ -34,7 +34,9 @@ for nii_name in nii_list:
 
     zoom_data = maxmin_norm(zoom_data)
     save_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
-    nib.save(save_file, os.path.basename(name)[:-7]+"_ori.nii")
+    new_dataname = os.path.basename(name)[:-7]+"_ori.nii"
+    nib.save(save_file, new_dataname)
+    print(new_dataname)
     # px, py, pz = data.shape
     # qx, qy, qz = (px*2, py*2, pz*2)
 

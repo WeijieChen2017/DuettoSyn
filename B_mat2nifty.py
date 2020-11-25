@@ -58,6 +58,7 @@ for leah_name in leah_list:
     filename = os.path.basename(name)[:-17]
     new_dataname = filename+"_rec.nii"
     nib.save(sino_file, new_dataname)
+    print(new_dataname)
 
     # # pure_dir = "./recon/"+expername+"/pure/"
     # # blur_dir = "./recon/"+expername+"/blur/"
