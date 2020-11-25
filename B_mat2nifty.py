@@ -35,8 +35,8 @@ for leah_name in leah_list:
 
     data[data<0] = 0
     px, py, pz = data.shape
-    qx, qy = (512, 512)
-    zoom_data = zoom(data, (qx/px, qy/py, 1))
+    qx, qy, qz = (256, 256, 89)
+    zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 
     print("Old dim:", data.shape)
     print("New dim:", zoom_data.shape)
@@ -47,8 +47,8 @@ for leah_name in leah_list:
     # os.system("mkdir ./recon/"+expername+"/")
 
     filename = os.path.basename(name)[:-17]
-    new_dataname = filename+"_xy256z89.nii"
-    nib.save(sino_file, "./recon/PVC2x_"+new_dataname)
+    new_dataname = filename+"_rec.nii"
+    nib.save(sino_file, new_dataname)
 
     # # pure_dir = "./recon/"+expername+"/pure/"
     # # blur_dir = "./recon/"+expername+"/blur/"
