@@ -3,14 +3,17 @@ from scipy.io import loadmat
 import numpy as np
 import nibabel as nib
 import glob
+import os
 
-def maxmin_norm(data):
-    MAX = np.amax(data)
-    MIN = np.amin(data)
+def maxmin_norm(data, pMax=99.9, pMin=0.01):
+    # MAX = np.amax(data)
+    # MIN = np.amin(data)
+    MAX = np.percentile(data, q=pMax)
+    MIN = np.percentile(data, q=pMin)
     data = (data - MIN)/(MAX-MIN)
     return data
 
-nii_list = glob.glob("./recon/*.nii")
+nii_list = glob.glob("./BraTS20T_001_039/finish/*.nii.gz")
 nii_list.sort()
 for nii_name in nii_list:
     print(nii_name)
@@ -23,12 +26,12 @@ for nii_name in nii_list:
     file_header = file_nii.header
     file_affine = file_nii.affine
 
-    # data[data<0] = 0
+    data[data<0] = 0
     # data[data>1] = 1
 
-    data = maxmin_norm(np.rot90(data, 3))
+    data = maxmin_norm(data)
     save_file = nib.Nifti1Image(data, affine=file_affine, header=file_header)
-    nib.save(save_file, name)
+    nib.save(save_file, os.path.basename(name)[:-7]+".nii")
     # px, py, pz = data.shape
     # qx, qy, qz = (px*2, py*2, pz*2)
 
