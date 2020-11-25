@@ -35,8 +35,8 @@ for leah_name in leah_list:
 
     data[data<0] = 0
     px, py, pz = data.shape
-    qx, qy, qz = (512, 512, 89)
-    zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    qx, qy = (512, 512)
+    zoom_data = zoom(data, (qx/px, qy/py, 1))
 
     print("Old dim:", data.shape)
     print("New dim:", zoom_data.shape)
