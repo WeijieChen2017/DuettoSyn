@@ -28,10 +28,13 @@ for nii_name in nii_list:
 
     data[data<0] = 0
     # data[data>1] = 1
+    px, py, pz = data.shape
+    qx, qy, qz = (256, 256, 89)
+    zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
 
-    data = maxmin_norm(data)
-    save_file = nib.Nifti1Image(data, affine=file_affine, header=file_header)
-    nib.save(save_file, os.path.basename(name)[:-7]+".nii")
+    zoom_data = maxmin_norm(zoom_data)
+    save_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)
+    nib.save(save_file, os.path.basename(name)[:-7]+"_ori.nii")
     # px, py, pz = data.shape
     # qx, qy, qz = (px*2, py*2, pz*2)
 
