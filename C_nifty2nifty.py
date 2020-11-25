@@ -26,11 +26,15 @@ for nii_name in nii_list:
     file_header = file_nii.header
     file_affine = file_nii.affine
 
-    data[data<0] = 0
+    th = np.bincount(data).argmax()
+    print("background: ", th)
+    data[data<th] = 0
     # data[data>1] = 1
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    print("Old dim:", data.shape)
+    print("New dim:", zoom_data.shape)
 
     zoom_data = maxmin_norm(zoom_data)
     save_file = nib.Nifti1Image(zoom_data, affine=file_affine, header=file_header)

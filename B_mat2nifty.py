@@ -40,8 +40,10 @@ for leah_name in leah_list:
 
     # data[data<0] = 0
     # data[data>1] = 1
-
-    data[data<0] = 0
+    th = np.bincount(data).argmax()
+    print("background: ", th)
+    data[data<th] = 0
+    
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
