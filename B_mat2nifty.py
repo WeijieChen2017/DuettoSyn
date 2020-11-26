@@ -15,6 +15,7 @@ def maxmin_norm(data, pMax=99.9, pMin=0.00):
     # MIN = np.percentile(data, q=pMin)
     MIN = 0
     data = (data - MIN)/(MAX-MIN)
+    print("MAX: ", MAX, " MIN: ", MIN)
     return data
 
 def process_data(data):

@@ -5,29 +5,21 @@ import nibabel as nib
 import glob
 import os
 
-def maxmin_norm(data, pMax=99.9, pMin=0.00):
-    # MAX = np.amax(data)
-    # MIN = np.amin(data)
-    MAX = np.percentile(data, q=pMax)
-    # MIN = np.percentile(data, q=pMin)
-    MIN = 0
-    data = (data - MIN)/(MAX-MIN)
-    return data
-
 def process_data(data):
     (values,counts) = np.unique(data,return_counts=True)
     ind = np.argmax(counts)
-    th = values[ind]
-    print("background: ", th)
-    data[data<th] = 0
-    # data[data>1] = 1
+    th_min = values[ind]
+    print("background: ", th_min)
+    data[data<th_min] = 0
+    th_max = np.percentile(data, q=99.9)
+    data[data>th_max] = th_max
+    data = data / th_max
+
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
     print("Old dim:", data.shape)
     print("New dim:", zoom_data.shape)
-
-    zoom_data = maxmin_norm(zoom_data)
     return zoom_data
 
 nii_list = glob.glob("./BraTS20T_001_039/finish/*.nii.gz")
