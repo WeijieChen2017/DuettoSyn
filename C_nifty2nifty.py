@@ -39,7 +39,7 @@ for nii_name in nii_list:
 
     save_data = process_data(data)
     save_file = nib.Nifti1Image(save_data, affine=file_affine, header=file_header)
-    save_name = os.path.basename(name)[:-7]+"_ori.nii"
+    save_name = os.path.basename(name)[:-7]+"_rec.nii"
     nib.save(save_file, save_name)
     print(save_name)
     # px, py, pz = data.shape
