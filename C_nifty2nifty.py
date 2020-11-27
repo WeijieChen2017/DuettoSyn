@@ -15,7 +15,7 @@ def process_data(data):
     data[data>th_max] = th_max
     data = data / th_max
     print("Max: ", np.amax(data))
-    print("Min: ", np.amin(dataß))
+    print("Min: ", np.amin(data))
 
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
