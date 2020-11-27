@@ -14,6 +14,8 @@ def process_data(data):
     th_max = np.percentile(data, q=99.9)
     data[data>th_max] = th_max
     data = data / th_max
+    print("Max: ", np.amax(data))
+    print("Min: ", np.amin(dataß))
 
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
