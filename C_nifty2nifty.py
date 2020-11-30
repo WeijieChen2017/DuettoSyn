@@ -6,40 +6,43 @@ import glob
 import os
 
 def process_data(data):
-    (values,counts) = np.unique(data,return_counts=True)
-    ind = np.argmax(counts)
-    th_min = values[ind]
-    print("background: ", th_min)
-    data[data<th_min] = 0
-    th_max = np.percentile(data, q=99.9)
-    data[data>th_max] = th_max
-    data = data / th_max
-    print("Max: ", np.amax(data))
-    print("Min: ", np.amin(data))
-
+    
     px, py, pz = data.shape
     qx, qy, qz = (256, 256, 89)
     zoom_data = zoom(data, (qx/px, qy/py, qz/pz))
+    
+    (values,counts) = np.unique(zoom_data,return_counts=True)
+    ind = np.argmax(counts)
+    th_min = values[ind]
+    print("background: ", th_min)
+    zoom_data[zoom_data<th_min] = 0
+    th_max = np.percentile(zoom_data, q=99.9)
+    zoom_data[zoom_data>th_max] = th_max
+    zoom_data = zoom_data / th_max
+    print("Max: ", np.amax(zoom_data))
+    print("Min: ", np.amin(zoom_data))
+
+
     print("Old dim:", data.shape)
     print("New dim:", zoom_data.shape)
+
     return zoom_data
+    
+tmpl_name = "./test_data/zeros_PET.nii"
+tmpl_nii = nib.load(tmpl_name)
+tmpl_header = tmpl_nii.header
+tmpl_affine = tmpl_nii.affine
 
 nii_list = glob.glob("./BraTS20T_001_039/finish/*.nii.gz")
+# nii_list = glob.glob("./test_data/*.nii.gz")
 nii_list.sort()
 for nii_name in nii_list:
-    # print(nii_name)
-    name = nii_name
-    data = nib.load(nii_name).get_fdata()
-
-    tmpl_name = "./recon/example.nii"
-    file_nii = nib.load(tmpl_name)
-    file_data = file_nii.get_fdata()
-    file_header = file_nii.header
-    file_affine = file_nii.affine
-
-    save_data = process_data(data)
-    save_file = nib.Nifti1Image(save_data, affine=file_affine, header=file_header)
-    save_name = os.path.basename(name)[:-7]+"_rec.nii"
+    print(nii_name)
+    nii_data = nib.load(nii_name).get_fdata()
+       
+    save_data = process_data(nii_data)
+    save_file = nib.Nifti1Image(save_data, affine=tmpl_affine, header=tmpl_header)
+    save_name = os.path.basename(nii_name)[:-7]+"_rec.nii"
     nib.save(save_file, save_name)
     print(save_name)
     # px, py, pz = data.shape
