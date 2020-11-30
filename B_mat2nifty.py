@@ -39,6 +39,7 @@ tmpl_affine = tmpl_nii.affine
 mat_list = glob.glob("./pet/*.mat")
 mat_list.sort()
 for mat_name in mat_list:
+    print("-----------------------------------------------")
     exper_count += 1
     mdict = loadmat(mat_name)
 
@@ -53,7 +54,7 @@ for mat_name in mat_list:
         pass  # or you could use 'continue'
 
     save_data = process_data(mat_data)
-    save_file = nib.Nifti1Image(save_data, affine=file_affine, header=file_header)
+    save_file = nib.Nifti1Image(save_data, affine=tmpl_affine, header=tmpl_header)
     save_name = os.path.basename(name)[:-17]+"_ori.nii"
     nib.save(save_file, save_name)
     print(save_name)

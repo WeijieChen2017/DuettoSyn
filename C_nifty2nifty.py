@@ -37,6 +37,7 @@ nii_list = glob.glob("./BraTS20T_001_039/finish/*.nii.gz")
 # nii_list = glob.glob("./test_data/*.nii.gz")
 nii_list.sort()
 for nii_name in nii_list:
+    print("-----------------------------------------------")
     print(nii_name)
     nii_data = nib.load(nii_name).get_fdata()
        
