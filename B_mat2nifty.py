@@ -55,7 +55,7 @@ for mat_name in mat_list:
 
     save_data = process_data(mat_data)
     save_file = nib.Nifti1Image(save_data, affine=tmpl_affine, header=tmpl_header)
-    save_name = os.path.basename(name)[:-17]+"_ori.nii"
+    save_name = os.path.basename(mat_name)[:-17]+"_ori.nii"
     nib.save(save_file, save_name)
     print(save_name)
 
