@@ -5,7 +5,7 @@ from scipy.ndimage import zoom
 import glob
 import os
 
-file_list = glob.glob("./BraTS20T/*.nii.gz")
+file_list = glob.glob("../..//BraTS20T/*.nii.gz")
 file_list.sort()
 for file_name in file_list:
     print(file_name)
