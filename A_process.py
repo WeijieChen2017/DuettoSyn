@@ -5,7 +5,7 @@ from scipy.ndimage import zoom
 import glob
 import os
 
-file_list = glob.glob("../..//BraTS20T/*.nii.gz")
+file_list = glob.glob("../../BraTS20T/*.nii.gz")
 file_list.sort()
 for file_name in file_list:
     print(file_name)
@@ -16,8 +16,9 @@ for file_name in file_list:
     file_affine = file_nii.affine
 
     px, py, pz = file_data.shape
-    qx, qy, qz = (256, 256, 89)
-    zoom_data = zoom(file_data, (qx/px, qy/py, qz/pz))
+    qx, qy, qz = (240, 240, 56)
+    # zoom_data = zoom(file_data, (qx/px, qy/py, qz/pz))
+    zoom_data = file_data
 
     print("Old dim:", file_data.shape)
     print("New dim:", zoom_data.shape)
