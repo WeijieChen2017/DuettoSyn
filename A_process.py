@@ -17,7 +17,7 @@ for file_name in file_list:
 
     bg_mask = [file_data == 0]
     value_max = np.amax(file_data)
-    file_data = value_max - value_max
+    file_data = file_data - value_max
     file_data[bg_mask] = 0
 
     px, py, pz = file_data.shape
