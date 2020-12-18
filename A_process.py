@@ -15,6 +15,11 @@ for file_name in file_list:
     file_header = file_nii.header
     file_affine = file_nii.affine
 
+    bg_mask = [file_data == 0]
+    value_max = np.amax(file_data)
+    file_data = value_max - value_max
+    file_data[bg_mask] = 0
+
     px, py, pz = file_data.shape
     qx, qy, qz = (240, 240, 56)
     # zoom_data = zoom(file_data, (qx/px, qy/py, qz/pz))
