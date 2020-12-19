@@ -6,6 +6,7 @@ import glob
 import os
 
 file_list = glob.glob("../../BraTS20T/*.nii.gz")
+# file_list = glob.glob("./mri/*.nii.gz")
 file_list.sort()
 for file_name in file_list:
     print(file_name)
@@ -17,8 +18,9 @@ for file_name in file_list:
 
     bg_mask = [file_data == 0]
     value_max = np.amax(file_data)
-    file_data = file_data - value_max
-    file_data[bg_mask] = 0
+    file_data = value_max - file_data
+    file_data[tuple(bg_mask)] = 0
+    file_data[file_data <1] = 0
 
     px, py, pz = file_data.shape
     qx, qy, qz = (240, 240, 56)

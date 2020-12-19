@@ -2,17 +2,20 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-folderName = "./BraTS20T/";
+folderName = "./BraTS20T_299/";
 files = dir(fullfile(folderName, '*.mat'));
-for k=1:35
+for k=1:70
 name = files(k)
 [pathstr_temp,basename,exttemp] = fileparts(name.name);
 img = load(strcat(folderName, name.name));
 img = img.data;
-
+mean(mean(mean(img)))
 
 % Changed_Dec18_1 resize to 155*1mm to (?)*2.78mm
 img(img < 1) = 0;
+
+mean(mean(mean(img)))
+
 img1 = zeros(240,240,155);
 img2 = zeros(240,240,89);
 fov = 240;
@@ -27,6 +30,8 @@ img2Space = imref3d(size(img2), ...
     [-1 1]*fov/2, ...
     [-1 1]*afov2/2);
 img = imwarp(img, img1Space, affine3d(eye(4)), 'OutputView', img2Space);
+mean(mean(mean(img)))
+
 
 reconAlgorithm = 'OSEM-PSF';
 userConfig = ptbUserConfig(reconAlgorithm);
