@@ -33,7 +33,7 @@ for nii_path in nii_list:
     save_name = "./BraTS20T_m2/"+nii_group+"/"
     if not os.path.exists(save_name):
         os.makedirs(save_name)
-    save_name += os.path.basename(file_name)[:-7]+".mat"
+    save_name += nii_name[:-7]+".mat"
     savemat(save_name, mdic)
 
     # save_file = nib.Nifti1Image(norm_data, affine=nii_file.affine, header=nii_file.header)
