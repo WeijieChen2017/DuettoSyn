@@ -28,8 +28,8 @@ for nii_path in nii_list:
     # norm_data = norm_data * value_max
     
     # mdic = {"data": norm_data}
-    # nii_name = os.path.basename(nii_path)
-    # nii_group = nii_name[17:19]
+    nii_name = os.path.basename(nii_path)
+    nii_group = nii_name[17:19]
     print(nii_name, nii_group)
     # savemat("./BraTS20V/"+os.path.basename(file_name)[:-7]+".mat", mdic)
 
