@@ -2,20 +2,16 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-folderName = "./BraTS20T_299/";
+folderName = "./145/";
 files = dir(fullfile(folderName, '*.mat'));
-for k=1:70
+for k=1:length(files)
 name = files(k)
 [pathstr_temp,basename,exttemp] = fileparts(name.name);
 img = load(strcat(folderName, name.name));
 img = img.data;
-mean(mean(mean(img)))
 
 % Changed_Dec18_1 resize to 155*1mm to (?)*2.78mm
 img(img < 1) = 0;
-
-mean(mean(mean(img)))
-
 img1 = zeros(240,240,155);
 img2 = zeros(240,240,89);
 fov = 240;

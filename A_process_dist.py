@@ -27,17 +27,17 @@ for nii_path in nii_list:
     norm_data = norm_data ** 1.75
     norm_data = norm_data * value_max
     
-    mdic = {"data": norm_data}
-    nii_name = os.path.basename(nii_path)
-    nii_group = nii_name[17:19]
-    save_name = "./BraTS20T_m2/"+nii_group+"/"
-    if not os.path.exists(save_name):
-        os.makedirs(save_name)
-    save_name += nii_name[:-7]+".mat"
-    savemat(save_name, mdic)
+    # mdic = {"data": norm_data}
+    # nii_name = os.path.basename(nii_path)
+    # nii_group = nii_name[17:19]
+    # save_name = "./BraTS20T_m2/"+nii_group+"/"
+    # if not os.path.exists(save_name):
+    #     os.makedirs(save_name)
+    # save_name += nii_name[:-7]+".mat"
+    # savemat(save_name, mdic)
 
-    # save_file = nib.Nifti1Image(norm_data, affine=nii_file.affine, header=nii_file.header)
-    # save_name = "./BraTS20T_m2/"+os.path.basename(nii_path)[:-7]+"_e3p175.nii"
-    # nib.save(save_file, save_name)
+    save_file = nib.Nifti1Image(norm_data, affine=nii_file.affine, header=nii_file.header)
+    save_name = "./f3/"+os.path.basename(nii_path)[:-7]+"_inv.nii"
+    nib.save(save_file, save_name)
     print(save_name)
     print("--------------------------------------")
