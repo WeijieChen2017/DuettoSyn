@@ -2,7 +2,7 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-folderName = "./145/";
+folderName = "./27/";
 files = dir(fullfile(folderName, '*.mat'));
 for k=1:length(files)
 name = files(k)
@@ -11,22 +11,22 @@ img = load(strcat(folderName, name.name));
 img = img.data;
 
 % Changed_Dec18_1 resize to 155*1mm to (?)*2.78mm
-img(img < 1) = 0;
-img1 = zeros(240,240,155);
-img2 = zeros(240,240,89);
-fov = 240;
-afov1 = 155;
-afov2 = 247.42;
-img1Space = imref3d(size(img1), ...
-    [-1 1]*fov/2, ...
-    [-1 1]*fov/2, ...
-    [-1 1]*afov1/2);
-img2Space = imref3d(size(img2), ...
-    [-1 1]*fov/2, ...
-    [-1 1]*fov/2, ...
-    [-1 1]*afov2/2);
-img = imwarp(img, img1Space, affine3d(eye(4)), 'OutputView', img2Space);
-mean(mean(mean(img)))
+% img(img < 1) = 0;
+% img1 = zeros(240,240,155);
+% img2 = zeros(240,240,89);
+% fov = 240;
+% afov1 = 155;
+% afov2 = 247.42;
+% img1Space = imref3d(size(img1), ...
+%     [-1 1]*fov/2, ...
+%     [-1 1]*fov/2, ...
+%     [-1 1]*afov1/2);
+% img2Space = imref3d(size(img2), ...
+%     [-1 1]*fov/2, ...
+%     [-1 1]*fov/2, ...
+%     [-1 1]*afov2/2);
+% img = imwarp(img, img1Space, affine3d(eye(4)), 'OutputView', img2Space);
+% mean(mean(mean(img)))
 
 
 reconAlgorithm = 'OSEM-PSF';
@@ -61,7 +61,8 @@ imageFrame.data = img;
 fprintf('Forward projecting\n');
 imageFrame.data = ptbApplyImageSpacePsf(imageFrame.data, reconParams);
 sino = ptbForwardProject(imageFrame, subsetSino, scanner, reconParams.fwdProjFunc);
-save(strcat(folderName, basename, '_sino_bravo.mat'), 'sino');
+sino_name = strcat(folderName, basename, '_sino_bravo.mat')
+save(sino_name, 'sino');
 
 fprintf('Applying PSF to sinogram\n');
 psfMatrix = ptbReadFile(reconParams.corrOptions.psfOptions.sinoRadialFilename);
@@ -125,5 +126,8 @@ reconImg = ptbOsem(initialImg, filenames, generalParams, ...
 reconMat = strcat(folderName, basename, '_recon_OSP_F4.mat')
 fprintf('Writing recon to %s\n', reconMat);
 save(reconMat, 'reconImg')
-
+command_rm_sav = strcat("rm -f ", sinoFile)
+system(command_rm_sav);
+command_rm_sino = strcat("rm -f ", sino_name)
+system(command_rm_sino);
 end

@@ -5,7 +5,7 @@ import numpy as np
 import glob
 import os
 
-nii_list = glob.glob("../../BraTS20T/*.nii.gz")
+nii_list = glob.glob("../../BraTS20V/*.nii.gz")
 nii_list.sort()
 for nii_path in nii_list:
     print(nii_path)
@@ -37,7 +37,7 @@ for nii_path in nii_list:
     # savemat(save_name, mdic)
 
     save_file = nib.Nifti1Image(norm_data, affine=nii_file.affine, header=nii_file.header)
-    save_name = "./f3/"+os.path.basename(nii_path)[:-7]+"_inv.nii"
+    save_name = "./RSZP/"+os.path.basename(nii_path)[:-7]+"_inv.nii"
     nib.save(save_file, save_name)
     print(save_name)
     print("--------------------------------------")
