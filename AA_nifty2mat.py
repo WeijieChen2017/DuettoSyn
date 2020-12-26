@@ -27,6 +27,6 @@ for nii_path in nii_list:
     save_file = nib.Nifti1Image(nii_data, affine=nii_file.affine, header=nii_file.header)
     smoothed_file = processing.smooth_image(save_file, fwhm=3, mode='nearest')
     save_name = "./inv_RSZP_f3/"+nii_name
-    nib.save("F3:", smoothed_file, save_name)
-    print(save_name)
+    nib.save(smoothed_file, save_name)
+    print("F3:", save_name)
     print("--------------------------------------")
