@@ -6,7 +6,7 @@ import numpy as np
 import glob
 import os
 
-nii_list = glob.glob("./RSZP/*.nii")
+nii_list = glob.glob("./inv_RSZP/*.nii")
 nii_list.sort()
 for nii_path in nii_list:
     print(nii_path)
