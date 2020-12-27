@@ -8,7 +8,7 @@ for idx in range(70):
 	cmd_2 = "3dZeropad -I 15 -S 16 -A 25 -P 26 -L 25 -R 26 h"+idx_str+"+orig"
 	cmd_3 = "3dAFNItoNIFTI -prefix h"+idx_str+" zeropad+orig"
 	cmd_4 = "rm -f zeropad+orig.BRIK"
-	cmd_5 = "rm -f zeropcd ..ad+orig.HEAD"
+	cmd_5 = "rm -f zeropad+orig.HEAD"
 	# cmd_6 = "mv y"+idx_str+".nii ../inv_RSZP"
 	for cmd in [cmd_1, cmd_2, cmd_3, cmd_4, cmd_5]:
 		os.system(cmd)
