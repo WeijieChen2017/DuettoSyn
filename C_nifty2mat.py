@@ -24,6 +24,9 @@ for nii_path in nii_list:
     savemat(save_name, mdic)
     print("Mat:", save_name)
 
+    save_name = "./RSZP_f3/"
+    if not os.path.exists(save_name):
+        os.makedirs(save_name)
     save_file = nib.Nifti1Image(nii_data, affine=nii_file.affine, header=nii_file.header)
     smoothed_file = processing.smooth_image(save_file, fwhm=3, mode='nearest')
     save_name = "./RSZP_f3/"+nii_name
