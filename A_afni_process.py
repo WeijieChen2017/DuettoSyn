@@ -5,7 +5,7 @@ for idx in range(70):
 	idx_str = "{0:0>3}".format(idx+1)
 	print(idx_str)
 	cmd_1 = "3dresample -dxyz 1.172 1.172 2.78 -prefix h"+idx_str+" -inset sCT_1_"+idx_str+".nii.gz"
-	cmd_2 = "3dZeropad -I 15 -S 16 -A 25 -P 26 -L 25 -R 26 y"+idx_str+"+orig"
+	cmd_2 = "3dZeropad -I 15 -S 16 -A 25 -P 26 -L 25 -R 26 h"+idx_str+"+orig"
 	cmd_3 = "3dAFNItoNIFTI -prefix h"+idx_str+" zeropad+orig"
 	cmd_4 = "rm -f zeropad+orig.BRIK"
 	cmd_5 = "rm -f zeropcd ..ad+orig.HEAD"
