@@ -17,6 +17,7 @@
 % This should just run as is, you shouldn't need to change anything
 % Create necessary parameter structures
 % Create bare RDF structure
+
 clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
