@@ -6,7 +6,7 @@ import glob
 import os
 
 # nii_list = glob.glob("../../BraTS20V/*.nii.gz")
-nii_list = glob.glob("./hurley/*.nii.gz")
+nii_list = glob.glob("./B9/*.nii.gz")
 nii_list.sort()
 for nii_path in nii_list:
     print(nii_path)
