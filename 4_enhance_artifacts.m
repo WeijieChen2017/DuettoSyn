@@ -2,7 +2,7 @@ clear
 duettoPath = '/data/data_mrcv2/MCMILLAN_GROUP/10_software/duetto/duetto_v02.06_Mar2020';
 addpath(genpath(duettoPath));
 
-folderName = "./07/";
+folderName = "./";
 files = dir(fullfile(folderName, '*.mat'));
 for k=1:length(files)
 name = files(k)
@@ -89,13 +89,7 @@ userConfig.randomsCorrFlag = 0;
 userConfig.scatterCorrFlag = 0;
 userConfig.attenCorrFlag = 0;
 userConfig.normDtPucCorrFlag = 0;
-userConfig.postFilterFwhm = 4;
 userConfig.verbosity = PtbVerboseEnum.VERBOSE;
-
-% Changed_Dec18_4
-userConfig.imageTransaxialFlag = 1;
-userConfig.imageTransaxialFwhm_mm = 2.8;
-userConfig.sinoRadialFilename = 'detectorResponseMatrix.PETMR.GaussianFitReduced2p8mmPsfMat.mat';
 
 sinoFile = strcat(basename, '_emission_bravo.sav');
 
@@ -128,6 +122,4 @@ fprintf('Writing recon to %s\n', reconMat);
 save(reconMat, 'reconImg')
 command_rm_sav = strcat("rm -f ", sinoFile)
 system(command_rm_sav);
-command_rm_sino = strcat("rm -f ", sino_name)
-system(command_rm_sino);
 end
